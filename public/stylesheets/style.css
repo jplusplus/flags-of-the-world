@@ -1,0 +1,37 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #111;
+  color: gainsboro;
+}
+
+a {
+  color: #00B7FF;
+}
+figure{
+  margin:0;
+}
+.flaglist {
+  list-style: none;
+}
+.flagcard {
+  position: relative;
+  background-color: gainsboro;
+  height: 80px;
+  width: 160px;
+  margin:10px;
+  padding: 5px 2px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.flag img {
+  margin: 0 auto;
+  display: block;
+}
+.flag figcaption{
+  text-align: center;
+  margin-top: .8em;
+  font-size: 80%;
+  color: black;
+  font-weight: bold;
+}

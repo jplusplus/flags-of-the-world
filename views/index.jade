@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+
+  div.container
+    ul.flaglist
+      each obj in data
+        li.flagcard
+          figure.flag
+            img(src=obj.src, height="50")
+            figcaption #{obj.name}
