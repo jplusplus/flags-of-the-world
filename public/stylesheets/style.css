@@ -23,6 +23,8 @@ figure{
   padding: 8px 2px;
   display: inline-block;
   vertical-align: bottom;
+  outline: 1px white solid;
+  outline-offset: 1px;
 }
 .flag img {
   margin: 0 auto;
