@@ -7,8 +7,7 @@ router.get('/', function(req, res, next) {
 
     var year =  req.query.year || 1974
     var lang = req.query.lang || "sv"
-    console.log(req.query)
-    var api = "http://api.thenmap.net//v1/world/data/" + year + "?data_props=flag|name&data_lang=" + lang
+    var api = "http://api.thenmap.net/v1/world/data/" + year + "?data_props=flag|name&data_lang=" + lang
 
     http.get(api, function(reply){
         var body = ''
@@ -16,6 +15,7 @@ router.get('/', function(req, res, next) {
             body += chunk
         })
         .on('end', function(){
+            console.log(body)
             var json = JSON.parse(body)
             var data = []
             for (var index in json["data"]){
