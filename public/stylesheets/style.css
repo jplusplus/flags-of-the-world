@@ -17,10 +17,10 @@ figure{
 .flagcard {
   position: relative;
   background-color: gainsboro;
-  height: 80px;
+  height: 85px;
   width: 160px;
   margin:10px;
-  padding: 5px 2px;
+  padding: 8px 2px;
   display: inline-block;
   vertical-align: bottom;
 }
