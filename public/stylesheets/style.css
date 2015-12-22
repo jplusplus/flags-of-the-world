@@ -43,9 +43,16 @@ figure{
 #mainform{
   float:right;
 }
-.flaglist{
+.container{
   clear:both;
 }
-input{
-  margin-left:2em;
+label{
+  margin-left:1.5em;  
+}
+input, select{
+  margin-left:.5em;
+  margin-bottom:1em;
+}
+header{
+  max-width: 1080px;
 }
