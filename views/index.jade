@@ -4,6 +4,18 @@ block content
   h1= title
 
   div.container
+    form#mainform
+      label(for="languages")
+      select#languages(name="lang")
+        each language in availableLanguages
+          if language == selectedLanguage
+            option(selected) #{language}
+          else
+            option #{language}          
+      label(for="dates")
+      input#dates(type="number", value=date, name="date", min="1945", max="2016")
+      input.hideonjs(type="submit")
+
     ul.flaglist
       each obj in data
         li.flagcard

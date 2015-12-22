@@ -5,7 +5,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-    var year =  req.query.year || 1974
+    var year =  req.query.year || req.query.date || 1974
     var lang = req.query.lang || "sv"
 
     if (req.app.get('env') === 'development') {
@@ -14,13 +14,15 @@ router.get('/', function(req, res, next) {
         var api = "http://api.thenmap.net/v1/world/data/" + year + "?data_props=flag|name&data_lang=" + lang
     }
 
+    /* Available languages for this dataset: http://api.thenmap.net/v1/world/info */
+    var availableLanguages = ["sv","en","fi","fr","de","es","ru","it","nl","pl","zh","pt","ar","ja","fa","nn","no","he","tr","da","uk","ca","id","hu","vi","ko","et","cs","hi","sr","bg","nn"]
+
     http.get(api, function(reply){
         var body = ''
         reply.on('data', function(chunk){
             body += chunk
         })
         .on('end', function(){
-            console.log(body)
             var json = JSON.parse(body)["data"]
             var data = []
             for (var index in json){
@@ -44,7 +46,10 @@ router.get('/', function(req, res, next) {
             })
 
               res.render('index', { title: 'Flags of the world in ' + year,
-                                    data: data 
+                                    data: data,
+                                    availableLanguages: availableLanguages,
+                                    selectedLanguage: lang,
+                                    date: year
                                   })
         })
     })

@@ -37,3 +37,15 @@ figure{
   color: black;
   font-weight: bold;
 }
+.js .hideonjs{
+  display: none;
+}
+#mainform{
+  float:right;
+}
+.flaglist{
+  clear:both;
+}
+input{
+  margin-left:2em;
+}
