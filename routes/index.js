@@ -1,17 +1,21 @@
-var express = require('express');
-var http = require('http');
-var router = express.Router();
+var express = require('express')
+var http = require('http')
+var router = express.Router()
+var sprintf = require('sprintf')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-    var year =  req.query.year || req.query.date || 1974
+    var year =  req.query.dateyear || req.query.year || req.query.date || "1974"
+    var month =  sprintf('%02d', parseInt(req.query.datemonth || "01", 10))
+    var day =  sprintf('%02d', parseInt(req.query.dateday || "01", 10))
+    var date = [year, month, day].join("-")
     var lang = req.query.lang || "sv"
 
     if (req.app.get('env') === 'development') {
-        var api = "http://localhost:3000/v1/world/data/" + year + "?data_props=flag|name&data_lang=" + lang
+        var api = "http://localhost:3000/v1/world/data/" + date + "?data_props=flag|name&data_lang=" + lang
     } else {
-        var api = "http://api.thenmap.net/v1/world/data/" + year + "?data_props=flag|name&data_lang=" + lang
+        var api = "http://api.thenmap.net/v1/world/data/" + date + "?data_props=flag|name&data_lang=" + lang
     }
 
     /* Available languages for this dataset: http://api.thenmap.net/v1/world/info */
@@ -49,7 +53,10 @@ router.get('/', function(req, res, next) {
                                     data: data,
                                     availableLanguages: availableLanguages,
                                     selectedLanguage: lang,
-                                    date: year
+                                    dateyear: year,
+                                    datemonth: month,
+                                    dateday: day,
+                                    date: date
                                   })
         })
     })

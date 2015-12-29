@@ -2,7 +2,10 @@ extends layout
 
 block content
   header(lang="en")
-    h1= title
+    h1 #{title} 
+      small  (#{date})
+
+    p Data is drawn from <a href="http://www.thenmap.net">Thenmap</a>, which gets the flag data from <a href="http://www.wikidata.org">WikiData</a>. Flags are from Wikimedia Commons. See each flag's file page there for further information (the vast majority is in the public domain, but there are exceptions. Todo: Automatically detect these exceptions!)
 
     form#mainform
       label(for="languages") Language
@@ -11,10 +14,14 @@ block content
           if language == selectedLanguage
             option(selected) #{language}
           else
-            option #{language}          
+            option #{language}
       label(for="dates") Year
-      input#dates(type="number", value=date, name="date", min="1945", max="2016")
-      input.hideonjs(type="submit")
+      input.dates#dates(type="number", value=dateyear, name="dateyear", min="1945", max="2016")
+      label(for="month") Month
+      input.dates#month(type="number", value=datemonth, name="datemonth", min="1", max="12")
+      label(for="day") Day
+      input.dates#day(type="number", value=dateday, name="dateday", min="1", max="31")
+      input(type="submit")
 
   div.container
     hr
