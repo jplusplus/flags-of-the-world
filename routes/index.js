@@ -56,7 +56,8 @@ router.get('/', function(req, res, next) {
                                     dateyear: year,
                                     datemonth: month,
                                     dateday: day,
-                                    date: date
+                                    date: date,
+                                    currentYear: new Date().getFullYear()
                                   })
         })
     })

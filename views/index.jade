@@ -16,7 +16,7 @@ block content
           else
             option #{language}
       label(for="dates") Year
-      input.dates#dates(type="number", value=dateyear, name="dateyear", min="1945", max="2016")
+      input.dates#dates(type="number", value=dateyear, name="dateyear", min="1945", max=currentYear)
       label(for="month") Month
       input.dates#month(type="number", value=datemonth, name="datemonth", min="1", max="12")
       label(for="day") Day
