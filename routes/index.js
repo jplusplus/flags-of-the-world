@@ -1,7 +1,7 @@
-var express = require('express')
-var http = require('http')
-var router = express.Router()
-var sprintf = require('sprintf')
+const express = require('express')
+const http = require('http')
+const router = express.Router()
+const sprintf = require('sprintf')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,11 +12,7 @@ router.get('/', function(req, res, next) {
     var date = [year, month, day].join("-")
     var lang = req.query.lang || "sv"
 
-    if (req.app.get('env') === 'development') {
-        var api = "http://localhost:3000/v1/world/data/" + date + "?data_props=flag|name&data_lang=" + lang
-    } else {
-        var api = "http://api.thenmap.net/v1/world/data/" + date + "?data_props=flag|name&data_lang=" + lang
-    }
+    const api = `http://api.thenmap.net/v2/world/data/${date}?data_props=flag|name&language=${lang}`
 
     /* Available languages for this dataset: http://api.thenmap.net/v1/world/info */
     var availableLanguages = ["sv","en","fi","fr","de","es","ru","it","nl","pl","zh","pt","ar","ja","fa","nn","no","he","tr","da","uk","ca","id","hu","vi","ko","et","cs","hi","sr","bg","nn"]
@@ -27,20 +23,25 @@ router.get('/', function(req, res, next) {
             body += chunk
         })
         .on('end', function(){
-            var json = JSON.parse(body)["data"]
+            var json = JSON.parse(body)
             var data = []
+            let src
             for (var index in json){
-                if ("flag" in json[index][0]){
-                    if (json[index][0].flag.length > 1){
-                        console.log(json[index][0].name + " needs flag quantifyers at Wikidata!")
+                if ("flag" in json[index]){
+                    if (!json[index].flag){
+                        console.log(json[index].name + " needs flag quantifyers at Wikidata!")
                     }
-                    src = json[index][0].flag[0]
+                    if (Array.isArray(json[index].flag)){
+                        src = json[index].flag[0]
+                    } else {
+                        src = json[index].flag
+                    }
                 } else {
                     src = "https://upload.wikimedia.org/wikipedia/commons/6/61/Flag.svg"
                 }
                 data.push({
                     'src': src,
-                    'name': json[index][0].name
+                    'name': json[index].name
                 })
             }
             data.sort(function(a, b) {
